@@ -1,0 +1,56 @@
+---
+output:
+  html_document: default
+  html_notebook: default
+---
+
+```{r}
+names(CPI2019)
+```
+```{r}
+CPI2019$pais=CPI2019$Country
+CPI2019$Country=NULL
+```
+```{r}
+CPI2019$Score=CPI2019$`CPI score 2019`
+CPI2019$`CPI score 2019`=NULL
+```
+```{r}
+CPI2019[,c(1:16)]=NULL
+
+```
+```{r}
+CPI2019[,c(1:4)]=NULL
+
+```
+```{r}
+CPI2019$Score=as.numeric(CPI2019$Score)
+
+```
+```{r}
+str(CPI2019)
+```
+```{r}
+table(CPI2019$Score)
+summary(CPI2019$Score)
+```
+```{r}
+CPImodificado=CPI2019
+
+```
+```{r,echo=FALSE}
+str(CPImodificado)
+```
+```{r}
+names(CPImodificado)
+```
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
