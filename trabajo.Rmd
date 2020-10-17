@@ -1,0 +1,104 @@
+```{r}
+linkbase="https://en.wikipedia.org/wiki/Democracy_Ranking#:~:text=The%20Democracy%20Ranking%20is%20an%20index%20compiled%20by,produces%20an%20annual%20global%20ranking%20of%20liberal%20democracies."
+pathbase='//*[@id="mw-content-text"]/div[1]/table[3]'
+library(htmltab)
+demorank=htmltab(doc=linkbase,which=pathbase)
+```
+```{r}
+#limpieza
+demorank$Country=gsub('Â',"",demorank$Country)
+demorank$Rank=NULL
+```
+```{r}
+str(demorank)
+```
+```{r}
+demorank[,-c(1)]=lapply(demorank[,-c(1)], as.numeric)
+demorank$Health=NULL
+demorank$Environment=NULL
+demorank$`Gender Comprehensive`=NULL
+```
+```{r}
+#tendencia central
+summary(demorank$`Political System`)
+summary(demorank$Economy)
+summary(demorank$`Gender Equality`)
+summary(demorank$Knowledge)
+```
+```{r}
+hist(demorank$`Political System`)
+hist(demorank$Economy)
+hist(demorank$`Gender Equality`)
+hist(demorank$Knowledge)
+```
+
+```{r}
+#medidas de dispersion
+sd(demorank$`Political System`)
+var(demorank$`Political System`)
+sd(demorank$Economy)
+var(demorank$Economy)
+sd(demorank$`Gender Equality`)
+var(demorank$`Gender Equality`)
+sd(demorank$Knowledge)
+var(demorank$Knowledge)
+
+```
+```{r}
+#estadistica bivariada
+#correlaciones
+cor.test(~`Political System`+Economy,data=demorank)
+cor.test(~`Political System`+Knowledge,data=demorank)
+cor.test(~`Political System`+`Gender Equality`,data=demorank)
+
+```
+```{r}
+cor.test(~Economy+`Political System`,data=demorank)
+cor.test(~Economy+Knowledge,data=demorank)
+cor.test(~Economy+`Gender Equality`,data=demorank)
+```
+```{r}
+cor.test(~Knowledge+`Political System`,data=demorank)
+cor.test(~Knowledge+Economy,data=demorank)
+cor.test(~Knowledge+`Gender Equality`,data=demorank)
+```
+```{r}
+cor.test(~`Gender Equality`+`Political System`,data=demorank)
+cor.test(~`Gender Equality`+Knowledge,data=demorank)
+cor.test(~`Gender Equality`+Economy,data=demorank)
+```
+```{r}
+#graficos de dispersion
+plot(`Gender Equality`~Knowledge,data=demorank, main="Diagrama de dispersión",
+     xlab="Knowledge", ylab="Gender Equality", pch=20)
+```
+```{r}
+plot(`Political System`~Knowledge,data=demorank, main="Diagrama de dispersión",
+     xlab="Knowledge", ylab="Political System", pch=20)
+```
+```{r}
+plot(Economy~Knowledge,data=demorank, main="Diagrama de dispersión",
+     xlab="Knowledge", ylab="Economy", pch=20)
+```
+```{r}
+plot(`Political System`~Economy,data=demorank, main="Diagrama de dispersión",
+     xlab="Economy", ylab="Political System", pch=20)
+```
+```{r}
+plot(`Gender Equality`~Economy,data=demorank, main="Diagrama de dispersión",
+     xlab="Economy", ylab="Gender Equality", pch=20)
+```
+```{r}
+plot(`Gender Equality`~`Political System`,data=demorank, main="Diagrama de dispersión",
+     xlab="Political System", ylab="Gender Equality", pch=20)
+```
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
